@@ -19,15 +19,7 @@ Generates:
       </li>
     </ul>
 
-#### Show me more code. ####
-
-How about an alternate block of navigation?
-
-    <% navigation_for :sub_nav do |nav| %>
-      <%= nav.link_to 'Home', '#' %>
-    <% end %>
-
-#### Wait a minute, how do you mark a link as selected? ####
+#### How do you mark a link as selected? ####
 
     <% navigation_select 'Home' %>
 
@@ -49,7 +41,7 @@ That will generate:
 
 #### But my links need additional HTML! ####
 
-NavigationBuilder supports all of the same options that the `link_to` helper does:
+NavigationBuilder supports the same options that the `link_to` helper does:
 
     <% navigation_for :sub_nav do |nav| %>
       <% nav.link_to '#' do %>
@@ -67,6 +59,12 @@ Not at all, just use a regular expression:
 #### But what if I have multiple blocks of navigation on the page? ####
 
     <% navigation_select 'Home', :in => :sub_nav %>
+
+And in your layout:
+
+    <% navigation_for :sub_nav do |nav| %>
+      <%= nav.link_to 'Home', '#' %>
+    <% end %>
 
 #### Well... what if I need an Ordered List! ####
 
