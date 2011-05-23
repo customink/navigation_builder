@@ -31,6 +31,9 @@ module ActionView
         concat( tag(options[:wrapper_tag], options[:html], true) ) if navigation_has_wrapper?( options )
         yield builder.new(self, nav_name, options, block)
         concat("</#{options[:wrapper_tag]}>".html_safe) if navigation_has_wrapper?( options )
+
+        # Mark the navigation block has having been rendered
+        navigation_builder[nav_name] = true
       end
 
       # Make sure this is called *before* your navigation is rendered.
@@ -40,8 +43,12 @@ module ActionView
       # Example:
       #   <%= navigation_select 'Members', :in => :popup %>
       def navigation_select( link_name, options = {} )
-        options.reverse_merge!( :in => :main )
-        navigation_builder[options[:in]] = link_name
+        if navigation_builder[options[:in]] == true
+          raise RuntimeError, "The #{options[:in]} navigation block has already been rendered. You cannot call navigation_select if navigation_for has already been called."
+        else
+          options.reverse_merge!( :in => :main )
+          navigation_builder[options[:in]] = link_name
+        end
       end
 
     private
@@ -69,13 +76,13 @@ module ActionView
         if block_given?
           name         = @template.capture(&link_block)
           options      = args.first || {}
-          html_options = args.second
+          html_options = args.second || {}
 
           link_to_in_block( name, options, html_options, &link_block )
         else
           name         = args[0]
           options      = args[1] || {}
-          html_options = args[2]
+          html_options = args[2] || {}
 
           link_to_in_html( name, options, html_options )
         end
@@ -86,7 +93,7 @@ module ActionView
       def link_to_in_block( name, options, html_options, &link_block )
         item_html_options = extract_item_options!( html_options )
 
-        set_selected_link( name, item_html_options ) if is_selected?( name )
+        set_selected_link( name, html_options, item_html_options ) if is_selected?( name )
 
         @template.concat( @template.tag( @options[:nav_item_tag], item_html_options, true) ) if @options[:nav_item_tag]
         @template.link_to(options, html_options, &link_block)
@@ -96,7 +103,7 @@ module ActionView
       def link_to_in_html( name, options, html_options )
         item_html_options = extract_item_options!( html_options )
 
-        set_selected_link( name, item_html_options ) if is_selected?( name )
+        set_selected_link( name, html_options, item_html_options ) if is_selected?( name )
 
         link_html = @template.link_to(name, options, html_options)
 
@@ -111,8 +118,16 @@ module ActionView
         options.try(:delete, :item_html) || {}
       end
 
-      def set_selected_link( name, item_html_options )
-        ((item_html_options[:class] ||= '') << " #{@options[:selected_class]}").strip!
+      def set_selected_link( name, html_options, item_html_options )
+        (selected_tag_options( html_options, item_html_options ) << " #{@options[:selected_class]}").strip!
+      end
+
+      def selected_tag_options( html_options, item_html_options )
+        if @options[:nav_item_tag]
+          item_html_options[:class] ||= ''
+        else
+          html_options[:class] ||= ''
+        end
       end
 
       def is_selected?( name )

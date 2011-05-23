@@ -187,8 +187,19 @@ class TestNavigationBuilder < ActionView::TestCase
     assert_dom_equal expected, output_buffer
   end
 
+  should "generate HTML that highlights the currently selected navigation link even where there is no item tag" do
+    navigation_select 'Foo', :in => :main
 
-# TODO: Add test for "selected" class when there is no item tag
+    navigation_for :main, :nav_item_tag => false do |nav|
+      concat nav.link_to( 'Foo', '#' )
+    end
+
+    expected = [
+      "<a href=\"#\" class=\"selected\">Foo</a>"
+    ].join('')
+
+    assert_dom_equal expected, output_buffer
+  end
 
   should "generate HTML that highlights the currently selected navigation link by using a Regular Expression" do
     navigation_select /Foo/, :in => :main
@@ -209,6 +220,15 @@ class TestNavigationBuilder < ActionView::TestCase
     ].join('')
 
     assert_dom_equal expected, output_buffer
+  end
+
+  should "raise an exception if a link is selected AFTER the navigation has been rendered" do
+    assert_raises RuntimeError do
+      navigation_for :main do |nav|
+        concat nav.link_to( 'Foo', '#' )
+      end
+      navigation_select 'Foo', :in => :main
+    end
   end
 
 end
