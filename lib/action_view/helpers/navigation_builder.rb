@@ -17,7 +17,12 @@ module ActionView
 
         builder = options[:builder] || ActionView::Base.default_navigation_builder
 
-        options.reverse_merge!( :wrapper_tag => :ul, :nav_item_tag => :li, :html => {} )
+        options.reverse_merge!(
+          :wrapper_tag => :ul,
+          :nav_item_tag => :li,
+          :selected_class => 'selected',
+          :html => {}
+        )
 
         concat( tag(options[:wrapper_tag], options[:html], true) ) if navigation_has_wrapper?( options )
         yield builder.new(self, nav_name, options, block)
@@ -90,7 +95,7 @@ module ActionView
       end
 
       def set_selected_link( name, item_html_options )
-        ((item_html_options[:class] ||= '') << ' selected').strip!
+        ((item_html_options[:class] ||= '') << " #{@options[:selected_class]}").strip!
       end
 
       def is_selected?( name )

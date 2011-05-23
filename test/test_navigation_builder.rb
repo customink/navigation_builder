@@ -169,6 +169,25 @@ class TestNavigationBuilder < ActionView::TestCase
     assert_dom_equal expected, output_buffer
   end
 
+  should "generate HTML that highlights the currently selected navigation link with a custom class name" do
+    navigation_select 'Foo', :in => :main
+
+    navigation_for :main, :selected_class => 'current-page' do |nav|
+      concat nav.link_to( 'Foo', '#' )
+    end
+
+    expected = [
+      "<ul>",
+        "<li class=\"current-page\">",
+          "<a href=\"#\">Foo</a>",
+        "</li>",
+      "</ul>"
+    ].join('')
+
+    assert_dom_equal expected, output_buffer
+  end
+
+
 # TODO: Add test for "selected" class when there is no item tag
 
   should "generate HTML that highlights the currently selected navigation link by using a Regular Expression" do
