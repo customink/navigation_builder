@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "navigation_builder"
   gem.homepage = "http://github.com/customink/navigation_builder"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Just like a Rails FormBuilder, but for Navigation}
+  gem.description = %Q{NavigationBuilder makes creating navigational links in a Rails application a breeze.}
   gem.email = "dlindahl@customink.com"
   gem.authors = ["Derek Lindahl"]
   # dependencies defined in Gemfile

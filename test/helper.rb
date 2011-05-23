@@ -12,9 +12,10 @@ require 'test/unit'
 require 'redgreen'
 require 'shoulda'
 
-require 'active_support/deprecation'
+# require 'active_support/deprecation' # For Rails 3
 require 'action_pack'
 require 'action_view'
+require 'action_controller' # For Rails 2
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))

@@ -9,6 +9,6 @@ end
 group :test do
   gem 'redgreen', '~> 1.2.2'
   gem "shoulda", "~> 2.11.3"
-  gem 'activesupport'
-  gem 'actionpack'
+  gem 'activesupport', '~> 2.3.11'
+  gem 'actionpack', '~> 2.3.11'
 end

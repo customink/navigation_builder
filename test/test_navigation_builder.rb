@@ -101,11 +101,12 @@ class TestNavigationBuilder < ActionView::TestCase
   end
 
   should "generate HTML with links that were created with blocks" do
-    lambda {
+    # lambda {
       navigation_for :main do |nav|
-        concat nav.link_to( '#' ) { "<span>Foo</span>".html_safe }
+        # concat nav.link_to( '#' ) { "<span>Foo</span>".html_safe } # For Rails 3?
+        nav.link_to( '#' ) { "<span>Foo</span>".html_safe }
       end
-    }.call(ActionView::Base.new) # Scoped call so that the capture call works inside the Builder
+    # }.call(ActionView::Base.new) # For Rails 3: Scoped call so that the capture call works inside the Builder
 
     expected = [
       "<ul>",
@@ -168,14 +169,17 @@ class TestNavigationBuilder < ActionView::TestCase
     assert_dom_equal expected, output_buffer
   end
 
+# TODO: Add test for "selected" class when there is no item tag
+
   should "generate HTML that highlights the currently selected navigation link by using a Regular Expression" do
     navigation_select /Foo/, :in => :main
 
-    lambda {
+    # lambda {
       navigation_for :main do |nav|
-        concat nav.link_to( '#' ) { "<span>Foo</span>".html_safe }
+        # concat nav.link_to( '#' ) { "<span>Foo</span>".html_safe } # For Rails 3?
+        nav.link_to( '#' ) { "<span>Foo</span>".html_safe }
       end
-    }.call(ActionView::Base.new) # Scoped call so that the capture call works inside the Builder
+    # }.call(ActionView::Base.new) # For Rails 3: Scoped call so that the capture call works inside the Builder
 
     expected = [
       "<ul>",
