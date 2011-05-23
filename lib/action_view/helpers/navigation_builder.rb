@@ -3,15 +3,19 @@ module ActionView
 
     module NavigationBuilderHelper
 
+      # Holds references to the currently selected links for each navigation block on the page.
       def navigation_builder
         @navigation_builder ||= { :main => nil }
       end
 
-      # <% navigation_for :popup do |n| %>
-      #   <%= nav_to 'Design', :action => :design %>
-      # <% end %>
-      # 
-      # <%= navigation_select 'Design', :in => :popup %>
+      # Generates a block of navigation to be rendered to the page.
+      #
+      # Example:
+      #   <% navigation_for :popup do |n| %>
+      #     <%= nav_to 'Members', members_path %>
+      #   <% end %>
+      #
+      # Generally speaking, this should go in your layout.
       def navigation_for( nav_name, options = {}, &block )
         raise ArgumentError, "Missing block" unless block_given?
 
@@ -29,6 +33,12 @@ module ActionView
         concat("</#{options[:wrapper_tag]}>".html_safe) if navigation_has_wrapper?( options )
       end
 
+      # Make sure this is called *before* your navigation is rendered.
+      # Ideally, this should go in your views and navigation_for() should
+      # be in your layout.
+      #
+      # Example:
+      #   <%= navigation_select 'Members', :in => :popup %>
       def navigation_select( link_name, options = {} )
         options.reverse_merge!( :in => :main )
         navigation_builder[options[:in]] = link_name
@@ -44,10 +54,17 @@ module ActionView
 
     class NavigationBuilder
 
+      # Initializes the NavigationBuilder.
+      # You'll mostly likely never call this method directly.
       def initialize( template, nav_name, options, proc )
         @template, @nav_name, @options, @proc = template, nav_name, options, proc
       end
 
+      # Builds a link_to tag within the context of the current navigation block.
+      # This accepts all of the same parameters that ActiveView's link_to method
+      #
+      # Example:
+      #   <%= nav.link_to 'Home', '#' %>
       def link_to( *args, &link_block )
         if block_given?
           name         = @template.capture(&link_block)
