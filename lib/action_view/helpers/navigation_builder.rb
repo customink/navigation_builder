@@ -61,9 +61,12 @@ module ActionView
 
     class NavigationBuilder
 
+      attr_reader :item_count
+
       # Initializes the NavigationBuilder.
       # You'll mostly likely never call this method directly.
       def initialize( template, nav_name, options, proc )
+        @item_count = 0
         @template, @nav_name, @options, @proc = template, nav_name, options, proc
       end
 
@@ -72,6 +75,11 @@ module ActionView
       #
       # Example:
       #   <%= nav.link_to 'Home', '#' %>
+      #
+      # This will also increment the item_count once the link's markup has been generated.
+      # This allows you to special case link_to options based on the index of current link
+      # in your customized implementations of the Navigation Builder.
+      # ---
       def link_to( *args, &link_block )
         if block_given?
           name         = @template.capture(&link_block)
@@ -85,7 +93,7 @@ module ActionView
           html_options = args[2] || {}
 
           link_to_in_html( name, options, html_options )
-        end
+        end.tap { @item_count += 1 } # Increment the number of links generated (and still return markup)
       end
 
     private

@@ -66,6 +66,38 @@ And in your layout:
       <%= nav.link_to 'Home', '#' %>
     <% end %>
 
+#### I need to do something special after the third link! ####
+
+    <% navigation_for :main, do |nav| %>
+      <%= nav.link_to 'Home', '#' %>
+      <%- if nav.item_count = 3 -%>
+        Something Special
+      <%- end -%>
+    <% end %>
+
+That's probably a poor example. The usefulness of the `item_count` attribute is more apparent when you create a custom NavigationBuilder.
+
+For instance, you can use it to automatically add the class `"first"`:
+
+    module NavigationBuilders
+      class FancyPantsNavigation < ActionView::Helpers::NavigationBuilder
+      
+        def link_to_in_html( name, options, html_options )
+          if item_count == 0
+            html_options[:item_html] ||= { :class => '' }
+            html_options[:item_html][:class] = " #{html_options[:item_html][:class]} first".strip
+          end
+          
+          super
+        end
+        
+      end
+    end
+
+##### You can do that with CSS you know... #####
+
+If you don't have to support IE6, then yes, you can.
+
 #### Well... what if I need an Ordered List! ####
 
     <% navigation_for :main, :wrapper_tag => :ol do |nav| %>

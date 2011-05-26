@@ -28,6 +28,17 @@ class TestNavigationBuilder < ActionView::TestCase
     assert_dom_equal expected, output_buffer
   end
 
+  should "know how many links have been rendered" do
+    count = 0
+    navigation_for :main do |nav|
+      concat nav.link_to( 'Foo', '#' )
+      concat nav.link_to( 'Bar', '#' )
+      count = nav.item_count
+    end
+
+    assert_equal 2, count
+  end
+
   should "generate HTML with custom wrapper tag name" do
     navigation_for :main, :wrapper_tag => :ol do |nav|
       concat nav.link_to( 'Foo', '#' )
