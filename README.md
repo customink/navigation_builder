@@ -112,7 +112,7 @@ Generates:
       </li>
     </ol>
 
-#### Nevermind, I hate lists. I just want DIVs. ####
+#### Nevermind. I hate lists. I just want DIVs. ####
 
     <% navigation_for :main, :nav_item_tag => :div do |nav| %>
       <%= nav.link_to 'Home', '#' %>
@@ -134,7 +134,7 @@ Generates:
 
     <a href="#" class="selected">Home</a>
 
-#### Why didn't you name this Gem "Wolfman" ####
+#### Why didn't you name this Gem ["Wolfman"](http://en.wikipedia.org/wiki/Top_Gun#Cast) ####
 
 Originally I was going to. But if you came across a method named "wolfman" in your view code, it would not be entirely clear as to what it was going to do.
 So I just went with something boring and generic.
@@ -147,5 +147,3 @@ TODOs
 =====
 
 * Rails 3 support
-* Add test for "selected" class when there is no item tag
-* Add test for thrown exception when setting a selected link after a nav block has already been rendered.
