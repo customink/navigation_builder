@@ -153,14 +153,8 @@ module ActionView
   class Base
     cattr_accessor :default_navigation_builder
     self.default_navigation_builder = ::ActionView::Helpers::NavigationBuilder
+
+    include NavigationBuilderHelper
   end
 
 end
-
-# For Rails 3?
-# ActiveSupport.on_load(:action_view) do
-#   class ActionView::Base
-#     cattr_accessor :default_navigation_builder
-#     @@default_navigation_builder = ::ActionView::Helpers::NavigationBuilder
-#   end
-# end

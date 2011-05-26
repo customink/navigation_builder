@@ -1,9 +1,6 @@
-if defined?(Rails) && Rails.version.to_i == 3
-  # TODO: Rails 3 Support
-else
-  class ActionView::Base
-    autoload :NavigationBuilderHelper, 'action_view/helpers/navigation_builder'
+require 'action_view/helpers'
 
-    include NavigationBuilderHelper
-  end
+module ActionView::Helpers
+  autoload :NavigationBuilderHelper, 'action_view/helpers/navigation_builder'
+  autoload :NavigationBuilder, 'action_view/helpers/navigation_builder'
 end
