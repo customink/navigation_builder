@@ -28,9 +28,9 @@ module ActionView
           :html => {}
         )
 
-        concat( tag(options[:wrapper_tag], options[:html], true) ) if navigation_has_wrapper?( options )
-        yield builder.new(self, nav_name, options, block)
-        concat("</#{options[:wrapper_tag]}>".html_safe) if navigation_has_wrapper?( options )
+        start_tag( options ) if navigation_has_wrapper?( options )
+        body_content( builder, nav_name, options, &block )
+        close_tag( options ) if navigation_has_wrapper?( options )
 
         # Mark the navigation block has having been rendered
         navigation_builder[nav_name] = true
@@ -55,6 +55,18 @@ module ActionView
 
       def navigation_has_wrapper?( options )
         options[:wrapper_tag] and options[:nav_item_tag].to_s == 'li'
+      end
+
+      def start_tag( options )
+        concat( tag(options[:wrapper_tag], options[:html], true) )
+      end
+
+      def body_content( builder, nav_name, options, &block )
+        yield builder.new(self, nav_name, options, block)
+      end
+
+      def close_tag( options )
+        concat("</#{options[:wrapper_tag]}>".html_safe)
       end
 
     end

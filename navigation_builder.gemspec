@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{navigation_builder}
-  s.version = "1.0.0.beta4"
+  s.version = "1.0.0.beta5"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Derek Lindahl"]
-  s.date = %q{2011-05-26}
+  s.date = %q{2011-05-31}
   s.description = %q{NavigationBuilder makes creating navigational links in a Rails application a breeze.}
   s.email = %q{dlindahl@customink.com}
   s.extra_rdoc_files = [
