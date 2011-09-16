@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Derek Lindahl"]
-  s.date = %q{2011-05-31}
+  s.date = %q{2011-09-16}
   s.description = %q{NavigationBuilder makes creating navigational links in a Rails application a breeze.}
   s.email = %q{dlindahl@customink.com}
   s.extra_rdoc_files = [
