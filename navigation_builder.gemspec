@@ -5,13 +5,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{navigation_builder}
-  s.version = "1.0.0.beta6"
+  s.version = "2.0.0.beta1"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Derek Lindahl"]
-  s.date = %q{2011-09-16}
+  s.authors = ["Derek Lindahl", "Andrew Willis"]
+  s.date = %q{2012-01-05}
   s.description = %q{NavigationBuilder makes creating navigational links in a Rails application a breeze.}
-  s.email = %q{dlindahl@customink.com}
+  s.email = %q{alerts@customink.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/customink/navigation_builder}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.4.0}
+  s.rubygems_version = %q{1.6.2}
   s.summary = %q{Just like a Rails FormBuilder, but for Navigation}
 
   if s.respond_to? :specification_version then

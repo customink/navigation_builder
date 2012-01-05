@@ -1,29 +1,56 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    actionpack (2.3.11)
-      activesupport (= 2.3.11)
-      rack (~> 1.1.0)
-    activesupport (2.3.11)
+    abstract (1.0.0)
+    actionpack (3.0.11)
+      activemodel (= 3.0.11)
+      activesupport (= 3.0.11)
+      builder (~> 2.1.2)
+      erubis (~> 2.6.6)
+      i18n (~> 0.5.0)
+      rack (~> 1.2.1)
+      rack-mount (~> 0.6.14)
+      rack-test (~> 0.5.7)
+      tzinfo (~> 0.3.23)
+    activemodel (3.0.11)
+      activesupport (= 3.0.11)
+      builder (~> 2.1.2)
+      i18n (~> 0.5.0)
+    activesupport (3.0.11)
+    builder (2.1.2)
+    erubis (2.6.6)
+      abstract (>= 1.0.0)
     git (1.2.5)
+    i18n (0.5.0)
     jeweler (1.6.0)
       bundler (~> 1.0.0)
       git (>= 1.2.5)
       rake
-    rack (1.1.2)
+    nokogiri (1.4.7)
+    nokogiri-diff (0.1.0)
+      nokogiri (~> 1.4.1)
+      tdiff (~> 0.3.2)
+    rack (1.2.5)
+    rack-mount (0.6.14)
+      rack (>= 1.0.0)
+    rack-test (0.5.7)
+      rack (>= 1.0)
     rake (0.9.0)
     rcov (0.9.9)
     redgreen (1.2.2)
     shoulda (2.11.3)
+    tdiff (0.3.2)
+    tzinfo (0.3.31)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack (~> 2.3.11)
-  activesupport (~> 2.3.11)
+  actionpack (~> 3.0.10)
+  activesupport (~> 3.0.10)
   bundler (~> 1.0.0)
   jeweler (~> 1.6.0)
+  nokogiri-diff
   rcov
   redgreen (~> 1.2.2)
   shoulda (~> 2.11.3)

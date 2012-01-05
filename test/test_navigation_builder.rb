@@ -258,13 +258,45 @@ class TestNavigationBuilder < ActionView::TestCase
   end
 
   should "raise an exception if a link is selected AFTER the navigation has been rendered" do
-    assert_raises RuntimeError do
+    assert_raises ActionView::Template::Error do
       render :inline => <<-EOS
         <% navigation_for :main do |nav| %>
           <%= nav.link_to( 'Foo', '#' ) %>
         <% end %>
         <% navigation_select 'Foo', :in => :main %>
       EOS
+    end
+  end
+
+  if ::ActionPack::VERSION::MAJOR >= 3
+    should "correctly render a template when there is a yield" do
+      assert_generated_markup do |test|
+        test.template = <<-EOS
+          <% content_for :head do %>
+            this is the top
+          <% end %>
+
+          this is some text
+          <% yield :head %>
+
+          <% navigation_for :main do |nav| %>
+            <% nav.link_to '#' do %>
+              <span>Foo</span> 
+            <% end %>
+          <% end %>
+        EOS
+
+        test.expected = <<-EOS
+          this is some text
+          this is the top
+
+         <ul>
+           <li>
+             <a href="#"><span>Foo</span></a>
+           </li>
+         </ul>
+        EOS
+      end
     end
   end
 

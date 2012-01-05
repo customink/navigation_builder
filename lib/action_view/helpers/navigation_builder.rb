@@ -116,8 +116,10 @@ module ActionView
         set_selected_link( name, html_options, item_html_options ) if is_selected?( name )
 
         @template.concat( @template.tag( @options[:nav_item_tag], item_html_options, true) ) if @options[:nav_item_tag]
-        @template.link_to(options, html_options, &link_block)
+        link_html = @template.link_to(options, html_options, &link_block)
+        @template.concat(link_html)
         @template.concat( "</#{@options[:nav_item_tag]}>".html_safe ) if @options[:nav_item_tag]
+        nil # have to return nil here so that the generated HTML is not added twice
       end
 
       def link_to_in_html( name, options, html_options )

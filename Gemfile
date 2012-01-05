@@ -9,6 +9,7 @@ end
 group :test do
   gem 'redgreen', '~> 1.2.2'
   gem "shoulda", "~> 2.11.3"
-  gem 'activesupport', '~> 2.3.11'
-  gem 'actionpack', '~> 2.3.11'
+  gem "nokogiri-diff"
+  gem 'activesupport', '~> 3.0.10'
+  gem 'actionpack', '~> 3.0.10'
 end
