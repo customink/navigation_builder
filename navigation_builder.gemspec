@@ -8,10 +8,10 @@ Gem::Specification.new do |s|
   s.version = "2.0.0.beta1"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Derek Lindahl", "Andrew Willis"]
+  s.authors = ["Derek Lindahl"]
   s.date = %q{2012-01-05}
   s.description = %q{NavigationBuilder makes creating navigational links in a Rails application a breeze.}
-  s.email = %q{alerts@customink.com}
+  s.email = %q{dlindahl@customink.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
