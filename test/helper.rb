@@ -8,18 +8,26 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
+require 'ostruct'
+
 require 'test/unit'
 require 'redgreen'
 require 'shoulda'
 
 # require 'active_support/deprecation' # For Rails 3
-require 'action_pack'
+require 'action_controller'
 require 'action_view'
-require 'action_controller' # For Rails 2
+require 'action_view/test_case'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'navigation_builder'
 
-class Test::Unit::TestCase
+module CustomAssertions
+  def assert_generated_markup
+    test_inputs = OpenStruct.new(:tempate => "", :expected => "")
+    yield test_inputs
+    render :inline => test_inputs.template
+    assert_dom_equal test_inputs.expected, rendered
+  end
 end
