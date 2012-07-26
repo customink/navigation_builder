@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+set +x
+
+# Environment: variable setup
+echo -n 'Setting up environment variables... '
+  export RAILS_ENV=test
+echo 'Done!'
+
+# Configs: setup
+echo -n 'Updating git submodules... '
+  git submodule update --init
+echo 'Done!'
+
+# Bundler: install all dependencies
+echo -n 'Bundling... '
+  bundle install --quiet --path vendor/bundle
+echo 'Done!'
+
+bundle exec rake test --trace
